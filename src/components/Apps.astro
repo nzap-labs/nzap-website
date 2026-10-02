@@ -81,15 +81,27 @@ const icon: Record<string, string> = {
             Weights: {entry.app!.license}
           </p>
         )}
-        <a
-          href={`${links.notebooks}/tree/main/notebooks/${entry.slug}`}
-          class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-ink/80 transition-colors hover:text-ink"
-        >
-          View the notebook
-          <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">
-            →
-          </span>
-        </a>
+        <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <a
+            href={`nzap://apps/public:${entry.slug}`}
+            class="inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-colors hover:text-white"
+            title="Opens the app in NZAP Engine (installed)"
+          >
+            Open in NZAP Engine
+            <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">
+              ↗
+            </span>
+          </a>
+          <a
+            href={`${links.notebooks}/tree/main/notebooks/${entry.slug}`}
+            class="inline-flex items-center gap-1.5 text-sm font-medium text-graphite transition-colors hover:text-ink"
+          >
+            View the notebook
+            <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">
+              →
+            </span>
+          </a>
+        </div>
       </li>
     ))}
     <li class="reveal flex flex-col rounded-[26px] border border-dashed border-white/15 p-6">
