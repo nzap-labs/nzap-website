@@ -1,0 +1,93 @@
+---
+import { asset, SOURCE_NOTE } from '../lib/site'
+
+const trust = ['Windows · macOS · Linux', 'No server, no NZAP account', SOURCE_NOTE]
+---
+
+<section id="top" class="relative overflow-hidden pt-32 md:pt-40">
+  <div class="grid-fade pointer-events-none absolute inset-0"></div>
+  <div class="studio-light pointer-events-none absolute inset-x-0 -top-40 h-[900px]"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5 text-center md:px-8">
+    <a
+      href="#apps"
+      class="hairline inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 text-xs text-graphite transition-colors hover:text-ink"
+    >
+      <span class="size-1.5 rounded-full bg-mint"></span>
+      New: Apps — Kokoro and Breeze text to speech, one click each
+    </a>
+    <h1 class="chrome-text mx-auto mt-7 max-w-5xl text-5xl font-medium leading-[1.02] tracking-[-0.035em] md:text-7xl lg:text-[88px]">
+      Your free Colab GPU,
+      <br class="hidden sm:block" /> one click from any AI app.
+    </h1>
+    <p class="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-graphite md:text-xl">
+      NZAP Engine is a native app that runs AI models on your own Google Colab runtimes. Pick an
+      app, see how long it will take, press one button. Nothing runs on your laptop but the window.
+    </p>
+
+    <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a
+        href="#download"
+        data-download
+        data-download-label
+        class="chrome-fill inline-flex h-13 items-center gap-2.5 rounded-full px-7 text-base font-medium"
+      >
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3v12m0 0 5-5m-5 5-5-5M4 19h16"></path>
+        </svg>
+        <span data-download-text>Download for free</span>
+      </a>
+      <a
+        href="#film"
+        class="hairline inline-flex h-13 items-center gap-2.5 rounded-full px-7 text-base font-medium text-ink transition-colors hover:bg-white/5"
+      >
+        <svg viewBox="0 0 24 24" class="size-5" fill="currentColor">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+        Watch the film <span class="text-graphite">1:12</span>
+      </a>
+    </div>
+
+    <ul class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-graphite">
+      {trust.map((item) => (
+        <li class="flex items-center gap-2">
+          <svg
+            viewBox="0 0 16 16"
+            class="size-3.5 text-mint"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+          >
+            <path d="m3 8.5 3 3 7-7" />
+          </svg>
+          {item}
+        </li>
+      ))}
+    </ul>
+
+    <div class="relative mx-auto mt-16 max-w-6xl md:mt-20">
+      <div class="absolute -inset-x-10 -inset-y-12 rounded-[48px] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(170,172,185,0.22),transparent_75%)] blur-2xl"></div>
+      <div class="hairline relative overflow-hidden rounded-[22px] bg-panel shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]">
+        <div class="flex h-9 items-center gap-2 border-b border-white/5 px-4">
+          <span class="size-3 rounded-full bg-white/15"></span>
+          <span class="size-3 rounded-full bg-white/15"></span>
+          <span class="size-3 rounded-full bg-white/15"></span>
+          <span class="mx-auto text-xs text-graphite">NZAP Engine</span>
+        </div>
+        <video
+          class="block aspect-[16/10] w-full object-cover"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={asset('screens/dark-02-apps.webp')}
+          aria-label="NZAP Engine running Kokoro text to speech on a Colab T4"
+        >
+          <source src={asset('media/hero.webm')} type="video/webm" />
+          <source src={asset('media/hero.mp4')} type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </div>
+</section>

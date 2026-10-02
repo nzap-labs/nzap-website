@@ -1,0 +1,74 @@
+---
+import Logo from './Logo.astro'
+import { asset, links } from '../lib/site'
+
+const platforms = [
+  { id: 'windows', name: 'Windows', detail: '10 and 11 · setup .exe' },
+  { id: 'mac', name: 'macOS', detail: 'Apple silicon and Intel · .dmg' },
+  { id: 'linux', name: 'Linux', detail: '.AppImage · .deb · .rpm' },
+]
+---
+
+<section
+  id="download"
+  class="relative scroll-mt-24 overflow-hidden border-t border-white/5 py-28 md:py-36"
+>
+  <div class="studio-light pointer-events-none absolute inset-0"></div>
+  <div class="relative mx-auto max-w-5xl px-5 text-center md:px-8">
+    <img
+      src={asset('brand/app-icon-1024.png')}
+      alt="NZAP Engine app icon"
+      width="132"
+      height="132"
+      loading="lazy"
+      class="reveal mx-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
+    />
+    <h2 class="reveal chrome-text mt-8 text-4xl font-medium tracking-[-0.03em] md:text-6xl">
+      Free, and yours.
+    </h2>
+    <p class="reveal mx-auto mt-5 max-w-xl text-lg leading-relaxed text-graphite" data-release-note>
+      One installer, then connect Google. Updates install themselves.
+    </p>
+    <ul class="reveal mt-12 grid gap-4 sm:grid-cols-3">
+      {platforms.map((platform) => (
+        <li>
+          <a
+            href={links.releases}
+            data-asset={platform.id}
+            class="hairline flex h-full flex-col items-start rounded-[22px] bg-panel p-6 text-left transition-colors hover:bg-panel-2"
+          >
+            <span class="text-lg font-medium">{platform.name}</span>
+            <span class="mt-1 text-sm text-graphite">{platform.detail}</span>
+            <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium" data-asset-label>
+              Download →
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-6 text-sm text-graphite" data-release-version></p>
+  </div>
+</section>
+
+<footer class="border-t border-white/5">
+  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-12 md:flex-row md:items-center md:justify-between md:px-8">
+    <Logo />
+    <nav class="flex flex-wrap gap-x-7 gap-y-3 text-sm text-graphite">
+      <a href={links.notebooks} class="hover:text-ink">
+        Apps & notebooks
+      </a>
+      <a href={links.appsGuide} class="hover:text-ink">
+        App format
+      </a>
+      <a href={links.github} class="hover:text-ink">
+        GitHub
+      </a>
+      <a href="https://nzap.in" class="hover:text-ink">
+        nzap.in
+      </a>
+    </nav>
+    <p class="text-xs text-graphite/80">
+      © {new Date().getFullYear()} NZAP Labs. Not affiliated with Google.
+    </p>
+  </div>
+</footer>

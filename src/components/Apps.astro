@@ -1,0 +1,137 @@
+---
+import { about, asset, links, loadCatalog } from '../lib/site'
+
+const catalog = await loadCatalog()
+const apps = catalog.filter((entry) => entry.app)
+const notebooks = catalog.length - apps.length
+
+const samples = [
+  {
+    file: 'samples/kokoro-heart.wav',
+    voice: 'Heart · US English',
+    text: 'Hello from NZAP Engine. This voice was generated on your own Colab runtime…',
+  },
+  {
+    file: 'samples/kokoro-george.wav',
+    voice: 'George · UK English',
+    text: 'Meet NZAP Engine: your own Colab GPUs, from a native window.',
+  },
+]
+
+const icon: Record<string, string> = {
+  audio:
+    '<path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/>',
+  text: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/>',
+  image:
+    '<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>',
+}
+---
+
+<section id="apps" class="relative mx-auto max-w-7xl scroll-mt-24 px-5 py-28 md:px-8 md:py-36">
+  <div class="reveal max-w-3xl">
+    <p class="text-xs font-medium uppercase tracking-[0.22em] text-graphite">Apps</p>
+    <h2 class="chrome-text mt-4 text-4xl font-medium tracking-[-0.03em] md:text-6xl">
+      Models with a real interface.
+    </h2>
+    <p class="mt-5 text-lg leading-relaxed text-graphite">
+      Every app knows the GPU it needs and how long setup and each run take, before you press
+      anything. The first run loads the model on your runtime; every run after that is warm.
+    </p>
+  </div>
+
+  <ul class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    {apps.map((entry) => (
+      <li class="reveal hairline group relative flex flex-col overflow-hidden rounded-[26px] bg-panel p-6 transition-colors hover:bg-panel-2">
+        <div class="flex items-start justify-between">
+          <span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-white via-[#d7d9e2] to-[#8f95a8] text-[#060607] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+            <svg
+              viewBox="0 0 24 24"
+              class="size-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              set:html={icon[entry.app!.category] ?? icon.text}
+            />
+          </span>
+          <span class="rounded-full bg-white/5 px-2.5 py-1 text-xs capitalize text-graphite">
+            {entry.app!.category}
+          </span>
+        </div>
+        <h3 class="mt-5 text-lg font-medium">{entry.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-graphite">
+          {entry.app!.tagline ?? entry.description}
+        </p>
+        <dl class="mt-auto grid grid-cols-3 gap-2 pt-6 text-xs">
+          <div class="rounded-xl bg-white/[0.03] p-2.5">
+            <dt class="text-graphite">Runs on</dt>
+            <dd class="mt-1 font-medium">{entry.app!.runtime.accelerator}</dd>
+          </div>
+          <div class="rounded-xl bg-white/[0.03] p-2.5">
+            <dt class="text-graphite">Setup</dt>
+            <dd class="mt-1 font-medium">{about(entry.app!.estimates.setup)}</dd>
+          </div>
+          <div class="rounded-xl bg-white/[0.03] p-2.5">
+            <dt class="text-graphite">Each run</dt>
+            <dd class="mt-1 font-medium">{about(entry.app!.estimates.run)}</dd>
+          </div>
+        </dl>
+        {entry.app!.license && (
+          <p class="mt-3 text-[11px] leading-relaxed text-graphite/80">
+            Weights: {entry.app!.license}
+          </p>
+        )}
+        <a
+          href={`${links.notebooks}/tree/main/notebooks/${entry.slug}`}
+          class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-ink/80 transition-colors hover:text-ink"
+        >
+          View the notebook
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">
+            →
+          </span>
+        </a>
+      </li>
+    ))}
+    <li class="reveal flex flex-col rounded-[26px] border border-dashed border-white/15 p-6">
+      <span class="grid size-12 place-items-center rounded-2xl bg-white/5 text-2xl">+</span>
+      <h3 class="mt-5 text-lg font-medium">Your app here</h3>
+      <p class="mt-2 text-sm leading-relaxed text-graphite">
+        Any notebook becomes an app with one small JSON file. Publish it to the community collection
+        and it appears in every copy of NZAP Engine.
+      </p>
+      <a
+        href="#build"
+        class="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-ink/80 hover:text-ink"
+      >
+        Build an app →
+      </a>
+    </li>
+  </ul>
+  {notebooks > 0 && (
+    <p class="reveal mt-6 text-sm text-graphite">
+      Plus {notebooks} plain notebooks with typed parameters, and your own private ones.
+    </p>
+  )}
+
+  <div class="reveal hairline mt-16 grid gap-8 rounded-[28px] bg-panel p-6 md:grid-cols-[1fr_1.2fr] md:p-10">
+    <div>
+      <p class="text-xs font-medium uppercase tracking-[0.22em] text-graphite">Hear it</p>
+      <h3 class="mt-3 text-2xl font-medium tracking-tight md:text-3xl">
+        Generated on a free Colab T4, through NZAP Engine.
+      </h3>
+      <p class="mt-3 text-sm leading-relaxed text-graphite">
+        Kokoro TTS, 82M parameters: about 50 seconds of setup the first time, then roughly two
+        seconds for ten seconds of speech.
+      </p>
+    </div>
+    <ul class="space-y-3">
+      {samples.map((sample) => (
+        <li class="rounded-2xl bg-white/[0.03] p-4">
+          <p class="text-sm font-medium">{sample.voice}</p>
+          <p class="mt-1 text-sm text-graphite">“{sample.text}”</p>
+          <audio class="mt-3 w-full" controls preload="none" src={asset(sample.file)} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

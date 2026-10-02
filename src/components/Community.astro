@@ -1,0 +1,99 @@
+---
+import { links, loadCatalog } from '../lib/site'
+
+const catalog = await loadCatalog()
+const apps = catalog.filter((entry) => entry.app).length
+
+const next = [
+  ['Open in NZAP', 'Launch any app from this page straight into the desktop app.'],
+  [
+    'More apps',
+    'Speech to text, image generation and local-feeling LLM chat, all on your runtime.',
+  ],
+  ['Chat and Agent mode', 'Talk to models running on your own Colab, with tools.'],
+  ['Shareable results', 'Send a generated clip or image as a link, without re-running anything.'],
+]
+---
+
+<section id="community" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-28 md:px-8 md:py-36">
+  <div class="reveal max-w-3xl">
+    <p class="text-xs font-medium uppercase tracking-[0.22em] text-graphite">Community</p>
+    <h2 class="chrome-text mt-4 text-4xl font-medium tracking-[-0.03em] md:text-6xl">
+      Built in the open, one app at a time.
+    </h2>
+  </div>
+
+  <dl class="reveal mt-12 grid gap-px overflow-hidden rounded-[26px] bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="bg-stage p-7">
+      <dt class="text-sm text-graphite">GitHub stars</dt>
+      <dd class="mt-2 text-4xl font-medium tabular-nums" data-stars-total>
+        —
+      </dd>
+    </div>
+    <div class="bg-stage p-7">
+      <dt class="text-sm text-graphite">Apps in the collection</dt>
+      <dd class="mt-2 text-4xl font-medium tabular-nums">{apps}</dd>
+    </div>
+    <div class="bg-stage p-7">
+      <dt class="text-sm text-graphite">Notebooks</dt>
+      <dd class="mt-2 text-4xl font-medium tabular-nums">{catalog.length}</dd>
+    </div>
+    <div class="bg-stage p-7">
+      <dt class="text-sm text-graphite">Contributors</dt>
+      <dd class="mt-2 text-4xl font-medium tabular-nums" data-contributors-count>
+        —
+      </dd>
+    </div>
+  </dl>
+
+  <div class="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="reveal hairline rounded-[26px] bg-panel p-7">
+      <h3 class="text-xl font-medium">Join in</h3>
+      <p class="mt-2 text-sm leading-relaxed text-graphite">
+        Publish an app, improve a notebook, or tell us what to build next. Every notebook is
+        reviewed before it ships, because it runs on other people’s runtimes.
+      </p>
+      <div class="mt-6 flex -space-x-2" data-contributors aria-label="Contributors"></div>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href={links.notebooks}
+          class="chrome-fill inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium"
+        >
+          Star the collection
+          <span
+            class="rounded-full bg-black/10 px-2 py-0.5 text-xs tabular-nums"
+            data-stars="nzap-labs/nzap-notebooks"
+          >
+            ★
+          </span>
+        </a>
+        <a
+          href={links.issues}
+          class="hairline inline-flex h-11 items-center rounded-full px-5 text-sm font-medium hover:bg-white/5"
+        >
+          Suggest an app
+        </a>
+        <a
+          href={links.github}
+          class="hairline inline-flex h-11 items-center rounded-full px-5 text-sm font-medium hover:bg-white/5"
+        >
+          NZAP Labs on GitHub
+        </a>
+      </div>
+    </div>
+    <div class="reveal hairline rounded-[26px] bg-panel p-7">
+      <h3 class="text-xl font-medium">What’s next</h3>
+      <ul class="mt-4 space-y-4">
+        {next.map(([title, body]) => (
+          <li class="flex gap-3">
+            <span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-ink/60" />
+            <span>
+              <span class="text-sm font-medium">{title}</span>
+              <span class="block text-sm text-graphite">{body}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

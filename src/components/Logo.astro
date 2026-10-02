@@ -1,0 +1,35 @@
+---
+import { asset } from '../lib/site'
+
+interface Props {
+  size?: 'sm' | 'lg'
+}
+const { size = 'sm' } = Astro.props
+const word = asset('brand/nzap-word-mask.png')
+---
+
+<span class:list={['inline-flex items-center', size === 'lg' ? 'gap-4' : 'gap-2.5']}>
+  <img
+    src={asset('brand/nzap-mark-dark-160.png')}
+    alt=""
+    width={size === 'lg' ? 64 : 36}
+    height={size === 'lg' ? 64 : 36}
+    class="drop-shadow-[0_0_14px_rgba(255,255,255,0.25)]"
+  />
+  <span class="flex flex-col gap-1.5">
+    <span
+      role="img"
+      aria-label="NZAP"
+      class:list={['block aspect-[627/87] bg-ink', size === 'lg' ? 'h-5' : 'h-3']}
+      style={`mask:url(${word}) no-repeat center/contain;-webkit-mask:url(${word}) no-repeat center/contain`}
+    ></span>
+    <span
+      class:list={[
+        'font-medium uppercase leading-none tracking-[0.42em] text-graphite',
+        size === 'lg' ? 'text-xs' : 'text-[9px]',
+      ]}
+    >
+      Engine
+    </span>
+  </span>
+</span>
