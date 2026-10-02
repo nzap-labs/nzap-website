@@ -1,0 +1,80 @@
+name: Site
+
+# Renders the videos (Remotion, video/) when they changed, builds the Astro
+# site, and deploys it to GitHub Pages. Rendered media is cached by a hash of
+# video/, so site-only changes deploy in about a minute.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # GitHub Pages serves a project site under /<repo>; set the variables
+      # BASE_PATH=/ and SITE_URL=https://your.domain once a custom domain is used.
+      BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
+      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Media cache
+        id: media
+        uses: actions/cache@v4
+        with:
+          path: public/media
+          key: media-v1-${{ hashFiles('video/src/**', 'video/public/**', 'video/package-lock.json', 'video/scripts/**') }}
+
+      - name: Render the homepage clip and the intro film
+        if: steps.media.outputs.cache-hit != 'true'
+        working-directory: video
+        run: |
+          npm ci
+          npx remotion browser ensure
+          mkdir -p ../public/media
+          npx remotion render src/index.ts HeroClip ../public/media/hero.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p
+          npx remotion render src/index.ts HeroClip ../public/media/hero.webm --codec=vp9 --crf=34
+          npx remotion render src/index.ts IntroFilm ../public/media/intro.mp4 --codec=h264 --crf=19 --pixel-format=yuv420p --audio-codec=aac
+          npx remotion still src/index.ts Poster ../public/media/intro-poster.jpg --frame=80 --image-format=jpeg --jpeg-quality=88
+          node scripts/captions.mjs > ../public/media/intro.vtt
+          ls -la ../public/media
+
+      - name: Build the site
+        run: |
+          npm ci
+          npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: media
+          path: public/media
+          retention-days: 30
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

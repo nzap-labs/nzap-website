@@ -1,0 +1,51 @@
+{
+  "file": "narration-breeze.wav",
+  "duration": 71.04,
+  "segments": [
+    {
+      "start": 0,
+      "end": 5.92,
+      "text": "You already have a powerful GPU in the cloud. It's just stuck inside a browser tab."
+    },
+    {
+      "start": 6.37,
+      "end": 11.81,
+      "text": "Meet NZAP Engine. Your own Google Colab runtimes, in a native app."
+    },
+    {
+      "start": 12.26,
+      "end": 18.846,
+      "text": "Connect your Google account once. No servers, no sign-ups, and your token never leaves your keychain."
+    },
+    {
+      "start": 19.437,
+      "end": 28.15,
+      "text": "Pick an app, like Kokoro text to speech. NZAP shows you the GPU it needs, and how long it will take, before you press a thing."
+    },
+    {
+      "start": 28.6,
+      "end": 39.0,
+      "text": "Hit generate. NZAP starts a T4, installs everything, and loads the model on Colab, not on your laptop."
+    },
+    {
+      "start": 39.45,
+      "end": 47.77,
+      "text": "Seconds later, you're listening to the result. And the next run is instant, because the model stays warm."
+    },
+    {
+      "start": 48.22,
+      "end": 56.55,
+      "text": "When you need more, there's a real terminal, a file manager, notebooks with typed parameters, and jobs that clean up after themselves."
+    },
+    {
+      "start": 57.95,
+      "end": 64.83,
+      "text": "Every app is just a notebook and a small JSON file, so anyone can publish one to the community catalog."
+    },
+    {
+      "start": 65.28,
+      "end": 71.04,
+      "text": "NZAP Engine. Free, open source, and yours. Download it today."
+    }
+  ]
+}
