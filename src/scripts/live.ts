@@ -118,7 +118,7 @@ async function contributors() {
     link.target = '_blank'
     link.rel = 'noopener noreferrer'
     link.className =
-      'block size-10 overflow-hidden rounded-full ring-2 ring-[#0e0e10] transition-transform hover:scale-105'
+      'block size-10 overflow-hidden rounded-full ring-2 ring-panel transition-transform hover:scale-105'
     const image = document.createElement('img')
     image.src = `${person.avatar_url}&s=80`
     image.alt = person.login
@@ -223,7 +223,8 @@ function activateCliTab(tabId: string) {
   tabs.forEach((btn) => {
     const active = btn.dataset.cliTab === tabId
     btn.setAttribute('aria-selected', active ? 'true' : 'false')
-    btn.classList.toggle('bg-white/12', active)
+    btn.classList.toggle('bg-panel', active)
+    btn.classList.toggle('dark:bg-white/12', active)
     btn.classList.toggle('text-ink', active)
     btn.classList.toggle('shadow-sm', active)
     btn.classList.toggle('text-graphite', !active)
@@ -234,6 +235,34 @@ function activateCliTab(tabId: string) {
 }
 
 function setupInteractiveUI() {
+  // 0. Theme toggle (Light / Dark mode matching nzap-engine)
+  const updateThemeToggleLabels = () => {
+    const isDark = document.documentElement.classList.contains('dark')
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+      btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode')
+    })
+  }
+  updateThemeToggleLabels()
+
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const root = document.documentElement
+      const next = root.classList.contains('dark') ? 'light' : 'dark'
+      try {
+        localStorage.setItem('nzap.theme', next)
+      } catch {
+        // Ignore private-mode storage restrictions
+      }
+      root.classList.add('theming')
+      window.setTimeout(() => root.classList.remove('theming'), 400)
+      root.classList.toggle('dark', next === 'dark')
+      root.style.colorScheme = next
+      const meta = document.querySelector('[data-theme-meta]')
+      if (meta) meta.setAttribute('content', next === 'dark' ? '#060607' : '#f6f6f3')
+      updateThemeToggleLabels()
+    })
+  })
+
   // 1. CLI Tabs
   document.querySelectorAll<HTMLButtonElement>('[data-cli-tab]').forEach((btn) => {
     btn.addEventListener('click', () => {

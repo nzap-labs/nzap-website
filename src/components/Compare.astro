@@ -30,7 +30,7 @@ const rows: { label: string; cells: Cell[] }[] = [
   <div class="reveal hairline mt-8 overflow-x-auto rounded-[24px] bg-panel sm:mt-12">
     <table class="w-full min-w-[680px] text-left text-sm">
       <thead>
-        <tr class="border-b border-white/5">
+        <tr class="border-b border-line/70">
           <th class="sticky left-0 z-10 bg-panel/95 p-4 font-medium text-graphite backdrop-blur-sm sm:p-5">
             Capability
           </th>
@@ -38,7 +38,7 @@ const rows: { label: string; cells: Cell[] }[] = [
             <th
               class:list={[
                 'p-4 font-medium sm:p-5',
-                index === 0 ? 'bg-white/[0.03] text-ink' : 'text-graphite',
+                index === 0 ? 'bg-well/60 text-ink dark:bg-white/[0.03]' : 'text-graphite',
               ]}
             >
               {column}
@@ -48,12 +48,12 @@ const rows: { label: string; cells: Cell[] }[] = [
       </thead>
       <tbody>
         {rows.map((row) => (
-          <tr class="border-b border-white/5 last:border-0">
+          <tr class="border-b border-line/60 last:border-0">
             <td class="sticky left-0 z-10 bg-panel/95 p-4 text-ink/90 backdrop-blur-sm sm:p-5">
               {row.label}
             </td>
             {row.cells.map((cell, index) => (
-              <td class:list={['p-4 sm:p-5', index === 0 && 'bg-white/[0.03]']}>
+              <td class:list={['p-4 sm:p-5', index === 0 && 'bg-well/60 dark:bg-white/[0.03]']}>
                 {cell === 'yes' ? (
                   <svg
                     viewBox="0 0 16 16"

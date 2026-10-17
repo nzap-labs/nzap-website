@@ -27,7 +27,7 @@ const chapters = [
       </p>
     </div>
 
-    <div class="reveal hairline relative mt-10 overflow-hidden rounded-[20px] bg-panel shadow-[0_40px_120px_-30px_rgba(0,0,0,0.95)] sm:mt-14 sm:rounded-[26px]">
+    <div class="reveal hairline relative mt-10 overflow-hidden rounded-[20px] bg-panel shadow-[0_32px_90px_-28px_rgba(12,12,14,0.25)] dark:shadow-[0_40px_120px_-30px_rgba(0,0,0,0.95)] sm:mt-14 sm:rounded-[26px]">
       <video
         id="intro-film-video"
         class="block aspect-video w-full"
@@ -53,7 +53,7 @@ const chapters = [
         <button
           type="button"
           data-film-seek={String(ch.time)}
-          class="hairline cursor-pointer rounded-full bg-white/[0.025] px-3 py-1.5 font-mono text-xs text-graphite transition-colors hover:bg-white/[0.08] hover:text-ink"
+          class="hairline cursor-pointer rounded-full bg-panel px-3 py-1.5 font-mono text-xs text-graphite transition-colors hover:bg-panel-2 hover:text-ink dark:bg-white/[0.025] dark:hover:bg-white/[0.08]"
         >
           {ch.label}
         </button>

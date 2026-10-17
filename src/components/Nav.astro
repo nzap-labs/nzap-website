@@ -14,7 +14,7 @@ const items = [
 ]
 ---
 
-<header class="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-stage/75 backdrop-blur-xl">
+<header class="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-stage/80 backdrop-blur-xl">
   <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
     <div class="flex items-center gap-3">
       <a href="#top" aria-label="NZAP Engine home" class="shrink-0">
@@ -22,7 +22,7 @@ const items = [
       </a>
       <a
         href={links.releases}
-        class="hidden rounded-full bg-white/[0.04] px-2.5 py-0.5 font-mono text-[11px] text-graphite ring-1 ring-white/10 transition-colors hover:text-ink sm:inline-flex"
+        class="hidden rounded-full bg-panel-2/80 px-2.5 py-0.5 font-mono text-[11px] text-graphite ring-1 ring-line transition-colors hover:text-ink sm:inline-flex"
       >
         {RELEASE_VERSION}
       </a>
@@ -41,7 +41,7 @@ const items = [
     <div class="flex items-center gap-2">
       <a
         href={links.engine}
-        class="hairline hidden items-center gap-2 rounded-full px-3.5 py-2 text-sm text-graphite transition-colors hover:text-ink sm:inline-flex"
+        class="hairline hidden items-center gap-2 rounded-full bg-panel/60 px-3.5 py-2 text-sm text-graphite transition-colors hover:bg-panel-2 hover:text-ink sm:inline-flex"
         aria-label="NZAP Engine on GitHub"
       >
         <svg viewBox="0 0 16 16" class="size-4" fill="currentColor" aria-hidden="true">
@@ -51,11 +51,46 @@ const items = [
         <span
           data-stars-total
           data-nav-stars
-          class="rounded-full bg-white/8 px-2 py-0.5 font-mono text-xs tabular-nums text-ink"
+          class="rounded-full bg-panel-2 px-2 py-0.5 font-mono text-xs tabular-nums text-ink"
         >
           ★ {stats.totalStars}
         </span>
       </a>
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Toggle light or dark mode"
+        title="Switch between light and dark theme"
+        class="hairline inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-panel/60 text-graphite transition-colors hover:bg-panel-2 hover:text-ink"
+      >
+        <!-- Sun icon shown in dark mode (click to switch to light) -->
+        <svg
+          viewBox="0 0 24 24"
+          class="hidden size-4 dark:block"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2m-7.07-14.93 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+        <!-- Moon icon shown in light mode (click to switch to dark) -->
+        <svg
+          viewBox="0 0 24 24"
+          class="size-4 dark:hidden"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
       <a
         href="#download"
         data-download
@@ -68,7 +103,7 @@ const items = [
         data-mobile-menu-btn
         aria-expanded="false"
         aria-label="Toggle navigation menu"
-        class="hairline inline-flex size-10 cursor-pointer items-center justify-center rounded-full text-ink transition-colors hover:bg-white/5 lg:hidden"
+        class="hairline inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-panel/60 text-ink transition-colors hover:bg-panel-2 lg:hidden"
       >
         <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
@@ -80,14 +115,14 @@ const items = [
   <!-- Mobile Navigation Drawer -->
   <div
     data-mobile-menu
-    class="hidden border-t border-white/5 bg-stage/95 px-5 py-5 backdrop-blur-2xl lg:hidden"
+    class="hidden border-t border-line/70 bg-stage/95 px-5 py-5 backdrop-blur-2xl lg:hidden"
   >
     <ul class="flex flex-col gap-1">
       {items.map((item) => (
         <li>
           <a
             href={item.href}
-            class="flex items-center justify-between rounded-xl px-3 py-2.5 text-base font-medium text-ink/90 transition-colors hover:bg-white/5 hover:text-white"
+            class="flex items-center justify-between rounded-xl px-3 py-2.5 text-base font-medium text-ink/90 transition-colors hover:bg-panel-2 hover:text-ink"
           >
             {item.label}
             <span class="text-xs text-graphite">→</span>
@@ -95,20 +130,22 @@ const items = [
         </li>
       ))}
     </ul>
-    <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/5 pt-4">
+    <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line/70 pt-4">
       <a
         href={links.engine}
-        class="hairline inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-ink"
+        class="hairline inline-flex items-center gap-2 rounded-full bg-panel px-4 py-2 text-sm text-ink"
       >
         GitHub Repository
         <span data-stars-total class="font-mono text-xs text-mint">★ {stats.totalStars}</span>
       </a>
-      <a
-        href="#install"
-        class="inline-flex items-center gap-1.5 text-xs font-medium text-mint"
+      <button
+        type="button"
+        data-theme-toggle
+        class="hairline inline-flex cursor-pointer items-center gap-2 rounded-full bg-panel px-3.5 py-2 text-xs font-medium text-graphite hover:text-ink"
       >
-        Install via CLI / AI Agent →
-      </a>
+        <span class="dark:hidden">Switch to Dark Mode</span>
+        <span class="hidden dark:inline">Switch to Light Mode</span>
+      </button>
     </div>
   </div>
 </header>

@@ -6,16 +6,30 @@ interface Props {
 }
 const { size = 'sm' } = Astro.props
 const word = asset('brand/nzap-word-mask.png')
+const dim = size === 'lg' ? 64 : 36
 ---
 
 <span class:list={['inline-flex items-center', size === 'lg' ? 'gap-4' : 'gap-2.5']}>
-  <img
-    src={asset('brand/nzap-mark-dark-160.png')}
-    alt=""
-    width={size === 'lg' ? 64 : 36}
-    height={size === 'lg' ? 64 : 36}
-    class="drop-shadow-[0_0_14px_rgba(255,255,255,0.25)]"
-  />
+  <span class:list={['relative inline-block shrink-0', size === 'lg' ? 'size-16' : 'size-9']}>
+    <img
+      src={asset('brand/nzap-mark-light-160.png')}
+      alt=""
+      aria-hidden="true"
+      draggable="false"
+      width={dim}
+      height={dim}
+      class="size-full object-contain dark:hidden"
+    />
+    <img
+      src={asset('brand/nzap-mark-dark-160.png')}
+      alt=""
+      aria-hidden="true"
+      draggable="false"
+      width={dim}
+      height={dim}
+      class="hidden size-full object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.22)] dark:block"
+    />
+  </span>
   <span class="flex flex-col gap-1.5">
     <span
       role="img"

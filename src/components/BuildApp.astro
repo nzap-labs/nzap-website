@@ -34,7 +34,7 @@ const steps = [
 
 <section
   id="build"
-  class="relative scroll-mt-24 border-y border-white/5 bg-panel/40 py-28 md:py-36"
+  class="relative scroll-mt-24 border-y border-line/70 bg-panel-2/35 py-28 dark:bg-panel/40 md:py-36"
 >
   <div class="mx-auto grid max-w-7xl items-start gap-14 px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr]">
     <div class="reveal lg:sticky lg:top-28">
@@ -49,7 +49,7 @@ const steps = [
       </p>
       <ol class="mt-8 space-y-3">
         {steps.map(([file, text]) => (
-          <li class="flex gap-4 rounded-2xl bg-white/[0.03] p-4">
+          <li class="hairline flex gap-4 rounded-2xl bg-panel p-4 dark:bg-white/[0.03]">
             <code class="shrink-0 font-mono text-sm text-ink">{file}</code>
             <span class="text-sm text-graphite">{text}</span>
           </li>
@@ -64,21 +64,21 @@ const steps = [
         </a>
         <a
           href={links.contributing}
-          class="hairline inline-flex h-11 items-center rounded-full px-5 text-sm font-medium hover:bg-white/5"
+          class="hairline inline-flex h-11 items-center rounded-full bg-panel px-5 text-sm font-medium transition-colors hover:bg-panel-2"
         >
           Contributing guide
         </a>
       </div>
     </div>
     <div class="reveal space-y-5">
-      <figure class="hairline overflow-hidden rounded-[22px] bg-[#09090b]">
-        <figcaption class="border-b border-white/5 px-5 py-3 font-mono text-xs text-graphite">
+      <figure class="hairline overflow-hidden rounded-[22px] bg-panel dark:bg-well">
+        <figcaption class="border-b border-line/70 bg-well/60 px-5 py-3 font-mono text-xs text-graphite">
           notebooks/kokoro-tts/app.json
         </figcaption>
         <pre class="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-ink/90"><code>{appJson}</code></pre>
       </figure>
-      <figure class="hairline overflow-hidden rounded-[22px] bg-[#09090b]">
-        <figcaption class="border-b border-white/5 px-5 py-3 font-mono text-xs text-graphite">
+      <figure class="hairline overflow-hidden rounded-[22px] bg-panel dark:bg-well">
+        <figcaption class="border-b border-line/70 bg-well/60 px-5 py-3 font-mono text-xs text-graphite">
           notebooks/kokoro-tts/notebook.py (abridged)
         </figcaption>
         <pre class="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-ink/90"><code>{notebook}</code></pre>

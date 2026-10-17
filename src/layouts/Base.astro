@@ -16,7 +16,7 @@ const ogImage = new URL(asset('brand/og-card.png'), Astro.site)
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,7 +24,30 @@ const ogImage = new URL(asset('brand/og-card.png'), Astro.site)
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href={asset('favicon.png')} />
-    <meta name="theme-color" content="#060607" />
+    <meta name="theme-color" content="#060607" data-theme-meta />
+    <script is:inline>
+      ;(() => {
+        try {
+          const param = new URLSearchParams(window.location.search).get('theme')
+          const stored = localStorage.getItem('nzap.theme')
+          const theme =
+            param === 'light' || param === 'dark'
+              ? param
+              : stored === 'light' || stored === 'dark'
+                ? stored
+                : window.matchMedia('(prefers-color-scheme: light)').matches
+                  ? 'light'
+                  : 'dark'
+          document.documentElement.classList.toggle('dark', theme === 'dark')
+          document.documentElement.style.colorScheme = theme
+          const meta = document.querySelector('[data-theme-meta]')
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#060607' : '#f6f6f3')
+        } catch {
+          document.documentElement.classList.add('dark')
+          document.documentElement.style.colorScheme = 'dark'
+        }
+      })()
+    </script>
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

@@ -17,7 +17,7 @@ const trust = [
     <div class="inline-flex flex-wrap items-center justify-center gap-2">
       <a
         href="#download"
-        class="hairline inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 text-xs text-ink/90 transition-colors hover:bg-white/[0.06] hover:text-white"
+        class="hairline inline-flex items-center gap-2 rounded-full bg-panel/80 px-4 py-1.5 text-xs text-ink/90 transition-colors hover:bg-panel-2 hover:text-ink"
       >
         <span class="size-1.5 rounded-full bg-mint shadow-[0_0_8px_#3fae78]"></span>
         <span class="font-medium text-ink">{RELEASE_VERSION} is live</span>
@@ -49,7 +49,7 @@ const trust = [
       </a>
       <a
         href="#film"
-        class="hairline inline-flex h-13 items-center justify-center gap-2.5 rounded-full px-7 text-base font-medium text-ink transition-colors hover:bg-white/5"
+        class="hairline inline-flex h-13 items-center justify-center gap-2.5 rounded-full bg-panel/70 px-7 text-base font-medium text-ink transition-colors hover:bg-panel-2"
       >
         <svg viewBox="0 0 24 24" class="size-5" fill="currentColor">
           <path d="M8 5v14l11-7z"></path>
@@ -60,17 +60,17 @@ const trust = [
 
     <!-- Quick CLI & AI Agent Install Pill -->
     <div class="mx-auto mt-5 max-w-xl">
-      <div class="hairline flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-[#0a0a0c]/90 px-4 py-2.5 text-left backdrop-blur-md sm:rounded-full">
+      <div class="hairline flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-panel/90 px-4 py-2.5 text-left backdrop-blur-md dark:bg-well/90 sm:rounded-full">
         <div class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto font-mono text-xs text-ink/90">
           <span class="select-none text-mint">$</span>
-          <code data-hero-cli-cmd class=" truncate">curl -fsSL https://nzap.in/install.sh | sh</code>
+          <code data-hero-cli-cmd class="truncate">curl -fsSL https://nzap.in/install.sh | sh</code>
         </div>
         <div class="flex shrink-0 items-center gap-2">
           <button
             type="button"
             data-hero-cli-copy
             data-copy="curl -fsSL https://nzap.in/install.sh | sh"
-            class="hairline inline-flex h-7 cursor-pointer items-center gap-1 rounded-full bg-white/5 px-3 text-xs font-medium text-ink transition-colors hover:bg-white/10"
+            class="hairline inline-flex h-7 cursor-pointer items-center gap-1 rounded-full bg-panel-2 px-3 text-xs font-medium text-ink transition-colors hover:bg-line/60"
           >
             <span data-copy-label>Copy</span>
           </button>
@@ -104,11 +104,11 @@ const trust = [
 
     <div class="relative mx-auto mt-14 max-w-6xl sm:mt-16 md:mt-20">
       <div class="pointer-events-none absolute -inset-x-6 -inset-y-8 rounded-[48px] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(170,172,185,0.22),transparent_75%)] blur-2xl sm:-inset-x-10 sm:-inset-y-12"></div>
-      <div class="hairline relative overflow-hidden rounded-[18px] bg-panel shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)] sm:rounded-[22px]">
-        <div class="flex h-8 items-center gap-2 border-b border-white/5 px-4 sm:h-9">
-          <span class="size-2.5 rounded-full bg-white/15 sm:size-3"></span>
-          <span class="size-2.5 rounded-full bg-white/15 sm:size-3"></span>
-          <span class="size-2.5 rounded-full bg-white/15 sm:size-3"></span>
+      <div class="hairline relative overflow-hidden rounded-[18px] bg-panel shadow-[0_32px_90px_-28px_rgba(12,12,14,0.22)] dark:shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)] sm:rounded-[22px]">
+        <div class="flex h-8 items-center gap-2 border-b border-line/70 px-4 sm:h-9">
+          <span class="size-2.5 rounded-full bg-ink/15 sm:size-3"></span>
+          <span class="size-2.5 rounded-full bg-ink/15 sm:size-3"></span>
+          <span class="size-2.5 rounded-full bg-ink/15 sm:size-3"></span>
           <span class="mx-auto text-[11px] text-graphite sm:text-xs">NZAP Engine</span>
         </div>
         <video
