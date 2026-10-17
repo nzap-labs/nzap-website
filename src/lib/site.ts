@@ -42,10 +42,11 @@ export const links = {
   },
 }
 
-/** A path under the site's base. */
+/** A relative path under the site so the same build works on both https://nzap.in/ and /nzap-website/. */
 export function asset(path: string): string {
+  const clean = path.replace(/^\//, '')
   const base = import.meta.env.BASE_URL.replace(/\/$/, '')
-  return `${base}/${path.replace(/^\//, '')}`
+  return base ? `${base}/${clean}` : `./${clean}`
 }
 
 export interface CatalogApp {

@@ -7,5 +7,6 @@ export default defineConfig({
   site: process.env.SITE_URL ?? 'https://nzap.in',
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'ignore',
+  build: { assetsPrefix: '.' },
   vite: { plugins: [tailwindcss()] },
 })
