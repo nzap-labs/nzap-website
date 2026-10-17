@@ -2,10 +2,9 @@
 import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 
-// GitHub Pages serves the site under /<repo>/ until a custom domain is set;
-// the deploy workflow passes the right base path.
+// Custom domain nzap.in serves at root /; override via SITE_URL / BASE_PATH if needed.
 export default defineConfig({
-  site: process.env.SITE_URL ?? 'https://nzap-labs.github.io',
+  site: process.env.SITE_URL ?? 'https://nzap.in',
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'ignore',
   vite: { plugins: [tailwindcss()] },

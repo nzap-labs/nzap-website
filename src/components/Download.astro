@@ -1,74 +1,142 @@
 ---
 import Logo from './Logo.astro'
-import { asset, links } from '../lib/site'
+import { asset, links, RELEASE_VERSION } from '../lib/site'
 
 const platforms = [
-  { id: 'windows', name: 'Windows', detail: '10 and 11 · setup .exe' },
-  { id: 'mac', name: 'macOS', detail: 'Apple silicon and Intel · .dmg' },
-  { id: 'linux', name: 'Linux', detail: '.AppImage · .deb · .rpm' },
+  {
+    id: 'windows',
+    name: 'Windows',
+    detail: 'Windows 10 & 11 (x64)',
+    primaryHref: links.installers.windowsExe,
+    primaryLabel: 'Download Setup (.exe) →',
+    secondary: [
+      { label: '.msi installer', href: links.installers.windowsMsi, asset: 'windows-msi' },
+      { label: 'PowerShell script', href: '#install' },
+    ],
+  },
+  {
+    id: 'mac',
+    name: 'macOS',
+    detail: 'Apple silicon & Intel (Universal)',
+    primaryHref: links.installers.macDmg,
+    primaryLabel: 'Download Universal (.dmg) →',
+    secondary: [{ label: 'curl install.sh', href: '#install' }],
+  },
+  {
+    id: 'linux',
+    name: 'Linux',
+    detail: 'Ubuntu, Debian, Fedora & AppImage',
+    primaryHref: links.installers.linuxAppImage,
+    primaryLabel: 'Download .AppImage →',
+    secondary: [
+      { label: '.deb', href: links.installers.linuxDeb, asset: 'linux-deb' },
+      { label: '.rpm', href: links.installers.linuxRpm, asset: 'linux-rpm' },
+      { label: 'curl install.sh', href: '#install' },
+    ],
+  },
 ]
 ---
 
 <section
   id="download"
-  class="relative scroll-mt-24 overflow-hidden border-t border-white/5 py-28 md:py-36"
+  class="relative scroll-mt-24 overflow-hidden border-t border-white/5 py-24 md:py-36"
 >
   <div class="studio-light pointer-events-none absolute inset-0"></div>
   <div class="relative mx-auto max-w-5xl px-5 text-center md:px-8">
     <img
       src={asset('brand/app-icon-1024.png')}
       alt="NZAP Engine app icon"
-      width="132"
-      height="132"
+      width="124"
+      height="124"
       loading="lazy"
       class="reveal mx-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
     />
-    <h2 class="reveal chrome-text mt-8 text-4xl font-medium tracking-[-0.03em] md:text-6xl">
-      Free, and yours.
+    <div class="reveal mt-6 inline-flex items-center gap-2 rounded-full bg-mint/10 px-3.5 py-1 text-xs font-medium text-mint ring-1 ring-mint/25">
+      <span class="size-1.5 rounded-full bg-mint"></span>
+      Official Release {RELEASE_VERSION} · Available Now
+    </div>
+    <h2 class="reveal chrome-text mt-5 text-3xl font-medium tracking-[-0.03em] sm:text-5xl md:text-6xl">
+      Free, open source, and yours.
     </h2>
-    <p class="reveal mx-auto mt-5 max-w-xl text-lg leading-relaxed text-graphite" data-release-note>
-      One installer, then connect Google. Updates install themselves.
+    <p class="reveal mx-auto mt-5 max-w-xl text-base leading-relaxed text-graphite md:text-lg" data-release-note>
+      One installer, then connect Google. Signed updates install themselves automatically.
     </p>
-    <ul class="reveal mt-12 grid gap-4 sm:grid-cols-3">
+
+    <ul class="reveal mt-10 grid gap-4 sm:mt-12 sm:grid-cols-3">
       {platforms.map((platform) => (
-        <li>
-          <a
-            href={links.releases}
-            data-asset={platform.id}
-            class="hairline flex h-full flex-col items-start rounded-[22px] bg-panel p-6 text-left transition-colors hover:bg-panel-2"
-          >
-            <span class="text-lg font-medium">{platform.name}</span>
-            <span class="mt-1 text-sm text-graphite">{platform.detail}</span>
-            <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium" data-asset-label>
-              Download →
-            </span>
-          </a>
+        <li class="hairline flex flex-col justify-between rounded-[22px] bg-panel p-6 text-left transition-colors hover:bg-panel-2">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-medium text-ink">{platform.name}</span>
+              <span class="font-mono text-xs text-graphite">{RELEASE_VERSION}</span>
+            </div>
+            <p class="mt-1 text-sm text-graphite">{platform.detail}</p>
+          </div>
+          <div class="mt-6">
+            <a
+              href={platform.primaryHref}
+              data-asset={platform.id}
+              class="chrome-fill inline-flex h-10 w-full items-center justify-center rounded-full px-4 text-sm font-medium"
+            >
+              <span data-asset-label>{platform.primaryLabel}</span>
+            </a>
+            <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-graphite">
+              {platform.secondary.map((sec) => (
+                <a
+                  href={sec.href}
+                  data-asset={sec.asset}
+                  class=" underline decoration-white/20 underline-offset-4 transition-colors hover:text-ink"
+                >
+                  {sec.label}
+                </a>
+              ))}
+            </div>
+          </div>
         </li>
       ))}
     </ul>
-    <p class="mt-6 text-sm text-graphite" data-release-version></p>
+
+    <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-graphite sm:text-sm">
+      <span data-release-version>
+        Official Release {RELEASE_VERSION} · Signed builds for Windows, macOS & Linux
+      </span>
+      <span>·</span>
+      <a href={links.releasesAll} class="underline decoration-white/20 underline-offset-4 hover:text-ink">
+        All release assets & checksums →
+      </a>
+      <span>·</span>
+      <a href={links.installGuide} class="underline decoration-white/20 underline-offset-4 hover:text-ink">
+        First-launch & install guide →
+      </a>
+    </div>
   </div>
 </section>
 
-<footer class="border-t border-white/5">
+<footer class="border-t border-white/5 bg-stage">
   <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-12 md:flex-row md:items-center md:justify-between md:px-8">
     <Logo />
     <nav class="flex flex-wrap gap-x-7 gap-y-3 text-sm text-graphite">
-      <a href={links.notebooks} class="hover:text-ink">
-        Apps & notebooks
+      <a href={links.engine} class="transition-colors hover:text-ink">
+        Engine Source
       </a>
-      <a href={links.appsGuide} class="hover:text-ink">
-        App format
+      <a href={links.releasesAll} class="transition-colors hover:text-ink">
+        Releases
       </a>
-      <a href={links.github} class="hover:text-ink">
-        GitHub
+      <a href={links.notebooks} class="transition-colors hover:text-ink">
+        Apps & Notebooks
       </a>
-      <a href="https://nzap.in" class="hover:text-ink">
-        nzap.in
+      <a href={links.mcpGuide} class="transition-colors hover:text-ink">
+        MCP & AI Agents
+      </a>
+      <a href={links.installSh} class="font-mono text-xs transition-colors hover:text-ink">
+        install.sh
+      </a>
+      <a href={links.llmsTxt} class="font-mono text-xs transition-colors hover:text-ink">
+        llms.txt
       </a>
     </nav>
     <p class="text-xs text-graphite/80">
-      © {new Date().getFullYear()} NZAP Labs. Not affiliated with Google.
+      © {new Date().getFullYear()} NZAP Labs · Apache-2.0. Not affiliated with Google.
     </p>
   </div>
 </footer>

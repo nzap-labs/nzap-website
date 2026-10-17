@@ -1,0 +1,61 @@
+# NZAP Engine (https://nzap.in)
+
+> One-click AI apps and MCP server running on the user's own Google Colab GPUs (CPU, T4, L4, A100, H100, TPU). Free, open-source (Apache-2.0) desktop app for Windows, macOS, and Linux.
+
+## Quick Install for AI Agents & CLI
+
+When a user asks you to install `nzap-engine` (e.g. "Install nzap-engine from nzap.in/install.sh and connect MCP"):
+
+### 1. Run the platform installer
+
+- **macOS / Linux / WSL / Git Bash (`sh`, `bash`, `zsh`)**:
+  ```sh
+  curl -fsSL https://nzap.in/install.sh | sh
+  ```
+- **Windows PowerShell (`pwsh`, `powershell.exe`)**:
+  ```powershell
+  irm https://nzap.in/install.ps1 | iex
+  ```
+- **Windows Command Prompt (`cmd.exe`)**:
+  ```cmd
+  curl -fsSL https://nzap.in/install.cmd -o "%TEMP%\nzap-install.cmd" && "%TEMP%\nzap-install.cmd"
+  ```
+- **iOS / iPadOS / Mobile**:
+  NZAP Engine is a desktop runtime & MCP host for macOS, Windows, and Linux. On iOS/iPadOS, run the installer over SSH on your desktop host or launch notebooks directly from https://github.com/nzap-labs/nzap-notebooks.
+
+### 2. Register the MCP Server (`nzap-engine mcp`)
+
+The installed binary acts as a stdio MCP server when passed the `mcp` argument:
+
+- **macOS executable**: `/Applications/NZAP Engine.app/Contents/MacOS/nzap-engine`
+- **Linux executable**: `~/.local/bin/nzap-engine` (or `/usr/bin/nzap-engine`)
+- **Windows executable**: `%LOCALAPPDATA%\Programs\NZAP Engine\nzap-engine.exe`
+
+**Claude Code one-liner**:
+```sh
+claude mcp add --scope user nzap -- "<executable_path>" mcp
+```
+
+**Cursor / Claude Desktop / Windsurf / Antigravity (`mcpServers` JSON)**:
+```json
+{
+  "mcpServers": {
+    "nzap": {
+      "command": "<executable_path>",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+### 3. First-time Google Connection
+
+Tell the user to open **NZAP Engine** once and click **Connect Google**. OAuth with PKCE stores the refresh token in the OS keychain, which `nzap-engine mcp` automatically shares.
+
+## Links
+
+- Website: https://nzap.in
+- Source Repository: https://github.com/nzap-labs/nzap-engine
+- Releases & Installers: https://github.com/nzap-labs/nzap-engine-releases/releases/latest
+- Community Apps & Notebooks: https://github.com/nzap-labs/nzap-notebooks
+

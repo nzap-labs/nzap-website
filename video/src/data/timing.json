@@ -1,6 +1,6 @@
 {
   "fps": 30,
-  "audioRate": 1.03,
+  "audioRate": 1,
   "leadIn": 0.45,
   "gap": 0.32,
   "tail": 2.2

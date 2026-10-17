@@ -1,0 +1,37 @@
+WEBVTT
+
+1
+00:00:00.467 --> 00:00:06.267
+You already have a powerful GPU in the cloud. It's just stuck inside a browser tab.
+
+2
+00:00:06.567 --> 00:00:11.967
+Meet NZAP Engine. Your own Google Colab runtimes, in a native app.
+
+3
+00:00:12.300 --> 00:00:18.800
+Connect your Google account once. No servers, no sign-ups, and your token never leaves your keychain.
+
+4
+00:00:19.133 --> 00:00:27.633
+Pick an app, like Kokoro text to speech. NZAP shows you the GPU it needs, and how long it will take, before you press a thing.
+
+5
+00:00:27.967 --> 00:00:37.767
+Hit generate. NZAP starts a T4, installs everything, and loads the model on Colab, not on your laptop.
+
+6
+00:00:38.100 --> 00:00:46.300
+Seconds later, you're listening to the result. And the next run is instant, because the model stays warm.
+
+7
+00:00:46.633 --> 00:00:55.560
+When you need more, there's a real terminal, a file manager, notebooks with typed parameters, and jobs that clean up after themselves.
+
+8
+00:00:55.867 --> 00:01:02.844
+Every app is just a notebook and a small JSON file, so anyone can publish one to the community catalog.
+
+9
+00:01:03.167 --> 00:01:08.967
+NZAP Engine. Free, open source, and yours. Download it today.

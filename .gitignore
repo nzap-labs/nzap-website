@@ -3,6 +3,3 @@ dist/
 .astro/
 video/node_modules/
 video/out/
-# Rendered by CI (video/), served from public/media at build time.
-public/media/*.mp4
-public/media/*.webm

@@ -1,0 +1,255 @@
+---
+import { links } from '../lib/site'
+
+const agentPrompt = `Install nzap-engine from https://nzap.in/install.sh and register "nzap-engine mcp" as an MCP server so you can allocate Google Colab GPUs, run jobs, and execute AI apps for me.`
+
+const cliTabs = [
+  {
+    id: 'unix',
+    label: 'macOS / Linux',
+    badge: 'sh · bash · zsh',
+    command: 'curl -fsSL https://nzap.in/install.sh | sh',
+    note: 'Installs NZAP Engine.app on macOS or AppImage/.deb on Linux, links ~/.local/bin/nzap-engine, and auto-registers Claude Code MCP.',
+  },
+  {
+    id: 'powershell',
+    label: 'PowerShell',
+    badge: 'Windows 10 / 11',
+    command: 'irm https://nzap.in/install.ps1 | iex',
+    note: 'Downloads and silently installs the latest Windows x64 setup for your user account (no admin required) and configures MCP.',
+  },
+  {
+    id: 'cmd',
+    label: 'Command Prompt',
+    badge: 'cmd.exe',
+    command: 'curl -fsSL https://nzap.in/install.cmd -o "%TEMP%\\nzap.cmd" && "%TEMP%\\nzap.cmd"',
+    note: 'Works in classic Windows Command Prompt (cmd.exe) without switching shells.',
+  },
+  {
+    id: 'mcp',
+    label: 'Connect MCP',
+    badge: 'Claude · Cursor · Windsurf',
+    command: 'claude mcp add --scope user nzap -- nzap-engine mcp',
+    note: 'Or copy the mcpServers JSON from Settings → AI agents (MCP) inside NZAP Engine for Cursor, Claude Desktop, Windsurf, or Antigravity.',
+  },
+  {
+    id: 'ios',
+    label: 'iOS / iPadOS',
+    badge: 'SSH · Mobile Colab',
+    command: 'ssh user@your-mac-or-pc "curl -fsSL https://nzap.in/install.sh | sh"',
+    note: 'From Blink, Termius, or a-Shell on iOS/iPadOS, install on your desktop host over SSH — or open NZAP notebooks directly in mobile Safari.',
+  },
+]
+
+const mcpTools = [
+  {
+    name: 'start_runtime',
+    desc: 'Allocate CPU, T4, L4, A100, H100, or TPU v5e/v6e VMs on your Google account.',
+  },
+  {
+    name: 'run_job',
+    desc: 'One call: fresh VM, upload local files, run Python/ffmpeg/CUDA, download artifacts, release VM.',
+  },
+  {
+    name: 'run_app',
+    desc: 'Run one-click catalog apps (Kokoro TTS, Breeze TTS 2) and keep models warm across turns.',
+  },
+  {
+    name: 'run_code & files',
+    desc: 'Persistent IPython kernel execution plus chunked 500 MB file transfers in and out.',
+  },
+]
+---
+
+<section
+  id="install"
+  class="relative scroll-mt-24 border-b border-white/5 bg-panel/30 py-24 md:py-32"
+>
+  <div class="studio-light pointer-events-none absolute inset-0 opacity-60"></div>
+  <div class="relative mx-auto max-w-7xl px-5 md:px-8">
+    <div class="reveal flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full bg-mint/10 px-3 py-1 text-xs font-medium text-mint ring-1 ring-mint/25">
+          <span class="size-1.5 rounded-full bg-mint"></span>
+          New in v0.1.0 · AI Agents (MCP) & Universal CLI Install
+        </div>
+        <h2 class="chrome-text mt-4 text-3xl font-medium tracking-[-0.03em] sm:text-5xl md:text-6xl">
+          Install with one prompt.
+          <br class="hidden sm:block" /> Or one line in any shell.
+        </h2>
+        <p class="mt-4 text-base leading-relaxed text-graphite md:text-lg">
+          Paste the prompt into Claude Code, Cursor, Antigravity, or Windsurf—or run the one-liner
+          in PowerShell, CMD, macOS, or Linux. Your agent gets a real Colab GPU over MCP with zero
+          local setup.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href={links.mcpGuide}
+          class="hairline inline-flex h-10 items-center gap-2 rounded-full bg-white/[0.03] px-4 text-xs font-medium text-ink transition-colors hover:bg-white/[0.07]"
+        >
+          Read MCP docs →
+        </a>
+        <a
+          href={links.llmsTxt}
+          class="hairline inline-flex h-10 items-center gap-2 rounded-full bg-white/[0.03] px-4 font-mono text-xs text-graphite transition-colors hover:text-ink"
+        >
+          /llms.txt
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-12">
+      <!-- Left: AI Agent Prompt Card -->
+      <div class="reveal hairline flex flex-col justify-between rounded-[26px] bg-panel p-6 sm:p-8 lg:col-span-5">
+        <div>
+          <div class="flex items-center justify-between gap-3">
+            <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-mint">
+              <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z" />
+              </svg>
+              Option 1 · Paste into your AI Agent
+            </span>
+            <span class="rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] text-graphite">
+              Any Agent
+            </span>
+          </div>
+          <h3 class="mt-3 text-xl font-medium">Let your agent install & wire up NZAP</h3>
+          <p class="mt-2 text-sm leading-relaxed text-graphite">
+            <code class="font-mono text-ink/90">nzap.in/install.sh</code> includes structured agent instructions
+            for macOS, Windows PowerShell, CMD, and Linux, and registers <code class="font-mono text-ink/90">nzap-engine mcp</code> automatically.
+          </p>
+
+          <div class="hairline relative mt-5 rounded-2xl bg-[#08080a] p-4">
+            <p class="font-mono text-xs leading-relaxed text-ink/90 select-all sm:text-[13px]" id="agent-prompt-text">
+              {agentPrompt}
+            </p>
+            <div class="mt-4 flex items-center justify-between border-t border-white/5 pt-3">
+              <span class="text-[11px] text-graphite">
+                Works in Claude Code, Cursor, Antigravity, Windsurf, Codex
+              </span>
+              <button
+                type="button"
+                data-copy={agentPrompt}
+                class="chrome-fill inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-3.5 text-xs font-medium transition-transform active:scale-95"
+              >
+                <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                </svg>
+                <span data-copy-label>Copy prompt</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-2.5 pt-4">
+          {mcpTools.map((tool) => (
+            <div class="rounded-xl bg-white/[0.025] p-3 ring-1 ring-white/5">
+              <code class="font-mono text-xs font-medium text-ink">{tool.name}</code>
+              <p class="mt-1 text-[11px] leading-snug text-graphite">{tool.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Multi-Platform CLI & Shell Installer -->
+      <div class="reveal hairline flex flex-col justify-between rounded-[26px] bg-panel p-6 sm:p-8 lg:col-span-7">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-graphite">
+              <svg viewBox="0 0 24 24" class="size-4 text-ink" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" x2="20" y1="19" y2="19" />
+              </svg>
+              Option 2 · Run in your terminal
+            </span>
+            <span class="text-xs text-graphite">Supports macOS, Windows, Linux & iOS SSH</span>
+          </div>
+
+          <!-- Platform Selector Tabs -->
+          <div
+            class="mt-5 flex flex-wrap gap-1.5 rounded-2xl bg-[#08080a] p-1.5 ring-1 ring-white/5"
+            role="tablist"
+            aria-label="Choose your shell or platform"
+          >
+            {cliTabs.map((tab, idx) => (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={idx === 0 ? 'true' : 'false'}
+                data-cli-tab={tab.id}
+                class:list={[
+                  'cursor-pointer rounded-xl px-3.5 py-2 text-xs font-medium transition-all',
+                  idx === 0
+                    ? 'bg-white/12 text-ink shadow-sm'
+                    : 'text-graphite hover:bg-white/5 hover:text-ink',
+                ]}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <!-- Tab Panels -->
+          <div class="mt-5">
+            {cliTabs.map((tab, idx) => (
+              <div
+                data-cli-panel={tab.id}
+                class:list={[idx !== 0 && 'hidden']}
+                role="tabpanel"
+              >
+                <div class="hairline overflow-hidden rounded-2xl bg-[#070709]">
+                  <div class="flex items-center justify-between border-b border-white/5 px-4 py-2.5">
+                    <div class="flex items-center gap-2">
+                      <span class="size-2.5 rounded-full bg-white/15"></span>
+                      <span class="size-2.5 rounded-full bg-white/15"></span>
+                      <span class="size-2.5 rounded-full bg-white/15"></span>
+                      <span class="ml-2 font-mono text-[11px] text-graphite">{tab.badge}</span>
+                    </div>
+                    <button
+                      type="button"
+                      data-copy={tab.command}
+                      class="hairline inline-flex h-7 cursor-pointer items-center gap-1.5 rounded-full bg-white/5 px-3 text-xs font-medium text-ink transition-colors hover:bg-white/10"
+                    >
+                      <svg viewBox="0 0 24 24" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                      </svg>
+                      <span data-copy-label>Copy</span>
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto p-5">
+                    <pre class="font-mono text-xs leading-relaxed text-ink sm:text-sm"><code><span class="select-none text-mint">$ </span>{tab.command}</code></pre>
+                  </div>
+                </div>
+                <p class="mt-3 text-xs leading-relaxed text-graphite">
+                  {tab.note}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Example Agent Conversation Preview -->
+        <div class="mt-6 rounded-2xl bg-white/[0.025] p-4 ring-1 ring-white/5 sm:p-5">
+          <div class="flex items-center justify-between text-xs text-graphite">
+            <span class="font-medium text-ink">Once connected, ask your agent anything:</span>
+            <span class="font-mono text-[11px] text-mint">● nzap mcp active</span>
+          </div>
+          <div class="mt-3 grid gap-2 sm:grid-cols-2">
+            <div class="rounded-xl bg-black/40 p-3 text-xs text-graphite">
+              “Transcribe <code class="font-mono text-ink">interview.wav</code> on a Colab T4 with
+              faster-whisper and save <code class="font-mono text-ink">transcript.txt</code>.”
+            </div>
+            <div class="rounded-xl bg-black/40 p-3 text-xs text-graphite">
+              “Run the <code class="font-mono text-ink">kokoro-tts</code> app on my runtime to generate
+              voiceover audio for <code class="font-mono text-ink">intro.md</code>.”
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

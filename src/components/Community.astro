@@ -1,92 +1,103 @@
 ---
-import { links, loadCatalog } from '../lib/site'
+import { links, loadCatalog, loadOrgStats } from '../lib/site'
 
-const catalog = await loadCatalog()
+const [catalog, stats] = await Promise.all([loadCatalog(), loadOrgStats()])
 const apps = catalog.filter((entry) => entry.app).length
+const engineStars = stats.repoStars['nzap-labs/nzap-engine'] ?? 0
+const notebookStars = stats.repoStars['nzap-labs/nzap-notebooks'] ?? 0
 
 const next = [
   ['Scheduled jobs', 'Run a notebook every night on a fresh runtime and collect what it made.'],
   [
-    'More apps',
-    'Speech to text, image generation and local-feeling LLM chat, all on your runtime.',
+    'More 1-click apps',
+    'Speech to text (Whisper), image generation, and stem separation on your runtime.',
   ],
-  ['Chat and Agent mode', 'Talk to models running on your own Colab, with tools.'],
+  [
+    'In-app Chat & Agent UI',
+    'Built-in chat interface alongside the MCP server (`nzap-engine mcp`) already shipping today.',
+  ],
   ['Shareable results', 'Send a generated clip or image as a link, without re-running anything.'],
 ]
 ---
 
-<section id="community" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-28 md:px-8 md:py-36">
+<section id="community" class="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 md:px-8 md:py-36">
   <div class="reveal max-w-3xl">
     <p class="text-xs font-medium uppercase tracking-[0.22em] text-graphite">Community</p>
-    <h2 class="chrome-text mt-4 text-4xl font-medium tracking-[-0.03em] md:text-6xl">
+    <h2 class="chrome-text mt-4 text-3xl font-medium tracking-[-0.03em] sm:text-5xl md:text-6xl">
       Built in the open, one app at a time.
     </h2>
   </div>
 
-  <dl class="reveal mt-12 grid gap-px overflow-hidden rounded-[26px] bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="bg-stage p-7">
+  <dl class="reveal mt-10 grid gap-px overflow-hidden rounded-[26px] bg-white/5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="bg-stage p-6 sm:p-7">
       <dt class="text-sm text-graphite">GitHub stars</dt>
       <dd class="mt-2 text-4xl font-medium tabular-nums" data-stars-total>
-        —
+        {stats.totalStars}
       </dd>
     </div>
-    <div class="bg-stage p-7">
+    <div class="bg-stage p-6 sm:p-7">
       <dt class="text-sm text-graphite">Apps in the collection</dt>
       <dd class="mt-2 text-4xl font-medium tabular-nums">{apps}</dd>
     </div>
-    <div class="bg-stage p-7">
+    <div class="bg-stage p-6 sm:p-7">
       <dt class="text-sm text-graphite">Notebooks</dt>
       <dd class="mt-2 text-4xl font-medium tabular-nums">{catalog.length}</dd>
     </div>
-    <div class="bg-stage p-7">
+    <div class="bg-stage p-6 sm:p-7">
       <dt class="text-sm text-graphite">Contributors</dt>
       <dd class="mt-2 text-4xl font-medium tabular-nums" data-contributors-count>
-        —
+        {stats.contributorsCount}
       </dd>
     </div>
   </dl>
 
-  <div class="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-    <div class="reveal hairline rounded-[26px] bg-panel p-7">
-      <h3 class="text-xl font-medium">Join in</h3>
+  <div class="mt-6 grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+    <div class="reveal hairline rounded-[26px] bg-panel p-6 sm:p-7">
+      <h3 class="text-xl font-medium">Join in & star on GitHub</h3>
       <p class="mt-2 text-sm leading-relaxed text-graphite">
-        Publish an app, improve a notebook, or tell us what to build next. Every notebook is
-        reviewed before it ships, because it runs on other people’s runtimes.
+        NZAP Engine and the community app catalog are open source under Apache-2.0. Publish an app,
+        improve a notebook, or star the repositories to follow new releases.
       </p>
       <div class="mt-6 flex -space-x-2" data-contributors aria-label="Contributors"></div>
       <div class="mt-6 flex flex-wrap gap-3">
         <a
-          href={links.notebooks}
+          href={links.engine}
           class="chrome-fill inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium"
         >
-          Star the collection
+          Star NZAP Engine
           <span
-            class="rounded-full bg-black/10 px-2 py-0.5 text-xs tabular-nums"
-            data-stars="nzap-labs/nzap-notebooks"
+            class="rounded-full bg-black/15 px-2 py-0.5 font-mono text-xs tabular-nums"
+            data-stars="nzap-labs/nzap-engine"
           >
-            ★
+            ★ {engineStars}
           </span>
         </a>
         <a
-          href={links.issues}
+          href={links.notebooks}
+          class="hairline inline-flex h-11 items-center gap-2 rounded-full bg-white/[0.03] px-5 text-sm font-medium transition-colors hover:bg-white/[0.07]"
+        >
+          Star App Catalog
+          <span
+            class="rounded-full bg-white/10 px-2 py-0.5 font-mono text-xs tabular-nums"
+            data-stars="nzap-labs/nzap-notebooks"
+          >
+            ★ {notebookStars}
+          </span>
+        </a>
+        <a
+          href={links.notebookIssues}
           class="hairline inline-flex h-11 items-center rounded-full px-5 text-sm font-medium hover:bg-white/5"
         >
           Suggest an app
         </a>
-        <a
-          href={links.github}
-          class="hairline inline-flex h-11 items-center rounded-full px-5 text-sm font-medium hover:bg-white/5"
-        >
-          NZAP Labs on GitHub
-        </a>
       </div>
     </div>
-    <div class="reveal hairline rounded-[26px] bg-panel p-7">
+    <div class="reveal hairline rounded-[26px] bg-panel p-6 sm:p-7">
       <h3 class="text-xl font-medium">What’s next</h3>
       <ul class="mt-4 space-y-4">
         {next.map(([title, body]) => (
           <li class="flex gap-3">
-            <span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-ink/60" />
+            <span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-mint" />
             <span>
               <span class="text-sm font-medium">{title}</span>
               <span class="block text-sm text-graphite">{body}</span>

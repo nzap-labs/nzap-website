@@ -223,7 +223,7 @@ export const Outro: React.FC = () => {
             Download free · Windows · macOS · Linux
           </div>
           <div style={{ fontSize: 30, color: color.graphite, letterSpacing: '0.04em' }}>
-            github.com/nzap-labs
+            nzap.in · github.com/nzap-labs
           </div>
         </div>
       </AbsoluteFill>

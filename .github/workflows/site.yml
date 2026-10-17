@@ -19,10 +19,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # GitHub Pages serves a project site under /<repo>; set the variables
-      # BASE_PATH=/ and SITE_URL=https://your.domain once a custom domain is used.
-      BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
-      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+      # Deployed at custom domain https://nzap.in (root base path /).
+      BASE_PATH: ${{ vars.BASE_PATH || '/' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://nzap.in' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -41,6 +40,11 @@ jobs:
         if: steps.media.outputs.cache-hit != 'true'
         working-directory: video
         run: |
+          if [ -f ../public/media/intro.mp4 ] && [ -f ../public/media/hero.mp4 ] && [ -f ../public/media/hero.webm ] && [ -f ../public/media/intro.vtt ]; then
+            echo "Pre-rendered media found in public/media — skipping Remotion render."
+            ls -la ../public/media
+            exit 0
+          fi
           npm ci
           npx remotion browser ensure
           mkdir -p ../public/media

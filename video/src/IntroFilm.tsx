@@ -44,13 +44,34 @@ const FadeIn: React.FC<{ children: ReactNode; enabled: boolean }> = ({ children,
 }
 
 /**
- * The intro film: nine scenes, one per line of narration. The narration
- * was generated with Breeze TTS 2 on a Colab T4, through NZAP's own app.
+ * The intro film: nine scenes, one per line of narration, paired with an
+ * ElevenLabs studio voiceover and custom ambient product score.
  */
 export const IntroFilm: React.FC = () => {
-  const { fps } = useVideoConfig()
+  const { fps, durationInFrames } = useVideoConfig()
   return (
     <AbsoluteFill style={{ backgroundColor: color.stage }}>
+      <Audio
+        src={staticFile('audio/promo-music.mp3')}
+        volume={(f) => {
+          const fadeIn = interpolate(f, [0, 28], [0, 1], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          })
+          const fadeOut = interpolate(f, [durationInFrames - 72, durationInFrames - 4], [1, 0], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          })
+          // Swell gently during the closing call-to-action tail
+          const outroSwell = interpolate(
+            f,
+            [durationInFrames - 110, durationInFrames - 75],
+            [0.22, 0.34],
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
+          )
+          return fadeIn * fadeOut * outroSwell
+        }}
+      />
       {scenes.map((timing, index) => {
         const Scene = SCENE_COMPONENTS[index]
         const lead = index === 0 ? 0 : OVERLAP
@@ -84,9 +105,11 @@ export const IntroFilm: React.FC = () => {
             trimBefore={timing.trimBefore}
             trimAfter={timing.trimAfter}
             playbackRate={AUDIO_RATE}
+            volume={1}
           />
         </Sequence>
       ))}
     </AbsoluteFill>
   )
 }
+

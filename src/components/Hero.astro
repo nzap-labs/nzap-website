@@ -1,36 +1,46 @@
 ---
-import { asset, SOURCE_NOTE } from '../lib/site'
+import { asset, links, RELEASE_VERSION, SOURCE_NOTE } from '../lib/site'
 
-const trust = ['Windows · macOS · Linux', 'No server, no NZAP account', SOURCE_NOTE]
+const trust = [
+  'Windows · macOS · Linux',
+  'Works with Claude Code, Cursor & MCP',
+  'No server, no NZAP account',
+  SOURCE_NOTE,
+]
 ---
 
-<section id="top" class="relative overflow-hidden pt-32 md:pt-40">
+<section id="top" class="relative overflow-hidden pt-28 sm:pt-32 md:pt-40">
   <div class="grid-fade pointer-events-none absolute inset-0"></div>
   <div class="studio-light pointer-events-none absolute inset-x-0 -top-40 h-[900px]"></div>
 
   <div class="relative mx-auto max-w-7xl px-5 text-center md:px-8">
-    <a
-      href="#apps"
-      class="hairline inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 text-xs text-graphite transition-colors hover:text-ink"
-    >
-      <span class="size-1.5 rounded-full bg-mint"></span>
-      New: Apps — Kokoro and Breeze text to speech, one click each
-    </a>
-    <h1 class="chrome-text mx-auto mt-7 max-w-5xl text-5xl font-medium leading-[1.02] tracking-[-0.035em] md:text-7xl lg:text-[88px]">
+    <div class="inline-flex flex-wrap items-center justify-center gap-2">
+      <a
+        href="#download"
+        class="hairline inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-4 py-1.5 text-xs text-ink/90 transition-colors hover:bg-white/[0.06] hover:text-white"
+      >
+        <span class="size-1.5 rounded-full bg-mint shadow-[0_0_8px_#3fae78]"></span>
+        <span class="font-medium text-ink">{RELEASE_VERSION} is live</span>
+        <span class="text-graphite">·</span>
+        <span class="text-graphite">One-click Apps & MCP Server for AI Agents</span>
+      </a>
+    </div>
+
+    <h1 class="chrome-text mx-auto mt-6 max-w-5xl text-4xl font-medium leading-[1.04] tracking-[-0.035em] sm:mt-7 sm:text-6xl md:text-7xl lg:text-[86px]">
       Your free Colab GPU,
       <br class="hidden sm:block" /> one click from any AI app.
     </h1>
-    <p class="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-graphite md:text-xl">
-      NZAP Engine is a native app that runs AI models on your own Google Colab runtimes. Pick an
-      app, see how long it will take, press one button. Nothing runs on your laptop but the window.
+    <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-graphite sm:mt-7 sm:text-lg md:text-xl">
+      NZAP Engine is a native desktop app and MCP server that drives your own Google Colab runtimes.
+      Pick an app or connect your AI agent, see the GPU and time it needs, and press one button.
     </p>
 
-    <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+    <div class="mt-9 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center">
       <a
-        href="#download"
+        href={links.releases}
         data-download
         data-download-label
-        class="chrome-fill inline-flex h-13 items-center gap-2.5 rounded-full px-7 text-base font-medium"
+        class="chrome-fill inline-flex h-13 items-center justify-center gap-2.5 rounded-full px-7 text-base font-medium transition-transform active:scale-[0.99]"
       >
         <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 3v12m0 0 5-5m-5 5-5-5M4 19h16"></path>
@@ -39,21 +49,48 @@ const trust = ['Windows · macOS · Linux', 'No server, no NZAP account', SOURCE
       </a>
       <a
         href="#film"
-        class="hairline inline-flex h-13 items-center gap-2.5 rounded-full px-7 text-base font-medium text-ink transition-colors hover:bg-white/5"
+        class="hairline inline-flex h-13 items-center justify-center gap-2.5 rounded-full px-7 text-base font-medium text-ink transition-colors hover:bg-white/5"
       >
         <svg viewBox="0 0 24 24" class="size-5" fill="currentColor">
           <path d="M8 5v14l11-7z"></path>
         </svg>
-        Watch the film <span class="text-graphite">1:10</span>
+        Watch the film <span class="text-graphite">1:11</span>
       </a>
     </div>
 
-    <ul class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-graphite">
+    <!-- Quick CLI & AI Agent Install Pill -->
+    <div class="mx-auto mt-5 max-w-xl">
+      <div class="hairline flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-[#0a0a0c]/90 px-4 py-2.5 text-left backdrop-blur-md sm:rounded-full">
+        <div class="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto font-mono text-xs text-ink/90">
+          <span class="select-none text-mint">$</span>
+          <code data-hero-cli-cmd class=" truncate">curl -fsSL https://nzap.in/install.sh | sh</code>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            data-hero-cli-copy
+            data-copy="curl -fsSL https://nzap.in/install.sh | sh"
+            class="hairline inline-flex h-7 cursor-pointer items-center gap-1 rounded-full bg-white/5 px-3 text-xs font-medium text-ink transition-colors hover:bg-white/10"
+          >
+            <span data-copy-label>Copy</span>
+          </button>
+          <a
+            href="#install"
+            class="text-xs font-medium text-graphite transition-colors hover:text-ink"
+            title="Install via AI Agent prompt, PowerShell, CMD, or iOS SSH"
+          >
+            Agent prompt & all shells →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <ul class="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-graphite sm:text-sm">
       {trust.map((item) => (
         <li class="flex items-center gap-2">
           <svg
             viewBox="0 0 16 16"
-            class="size-3.5 text-mint"
+            class="size-3.5 shrink-0 text-mint"
             fill="none"
             stroke="currentColor"
             stroke-width="2.4"
@@ -65,14 +102,14 @@ const trust = ['Windows · macOS · Linux', 'No server, no NZAP account', SOURCE
       ))}
     </ul>
 
-    <div class="relative mx-auto mt-16 max-w-6xl md:mt-20">
-      <div class="absolute -inset-x-10 -inset-y-12 rounded-[48px] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(170,172,185,0.22),transparent_75%)] blur-2xl"></div>
-      <div class="hairline relative overflow-hidden rounded-[22px] bg-panel shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]">
-        <div class="flex h-9 items-center gap-2 border-b border-white/5 px-4">
-          <span class="size-3 rounded-full bg-white/15"></span>
-          <span class="size-3 rounded-full bg-white/15"></span>
-          <span class="size-3 rounded-full bg-white/15"></span>
-          <span class="mx-auto text-xs text-graphite">NZAP Engine</span>
+    <div class="relative mx-auto mt-14 max-w-6xl sm:mt-16 md:mt-20">
+      <div class="pointer-events-none absolute -inset-x-6 -inset-y-8 rounded-[48px] bg-[radial-gradient(50%_50%_at_50%_50%,rgba(170,172,185,0.22),transparent_75%)] blur-2xl sm:-inset-x-10 sm:-inset-y-12"></div>
+      <div class="hairline relative overflow-hidden rounded-[18px] bg-panel shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)] sm:rounded-[22px]">
+        <div class="flex h-8 items-center gap-2 border-b border-white/5 px-4 sm:h-9">
+          <span class="size-2.5 rounded-full bg-white/15 sm:size-3"></span>
+          <span class="size-2.5 rounded-full bg-white/15 sm:size-3"></span>
+          <span class="size-2.5 rounded-full bg-white/15 sm:size-3"></span>
+          <span class="mx-auto text-[11px] text-graphite sm:text-xs">NZAP Engine</span>
         </div>
         <video
           class="block aspect-[16/10] w-full object-cover"
