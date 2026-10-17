@@ -23,7 +23,26 @@ const ogImage = new URL(asset('brand/og-card.png'), Astro.site)
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/png" href={asset('favicon.png')} />
+    <link
+      rel="icon"
+      type="image/png"
+      href={asset('favicon-light.png')}
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href={asset('favicon-dark.png')}
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href={asset('favicon.png')}
+      data-theme-favicon
+      data-favicon-dark={asset('favicon-dark.png')}
+      data-favicon-light={asset('favicon-light.png')}
+    />
     <meta name="theme-color" content="#060607" data-theme-meta />
     <script is:inline>
       ;(() => {
@@ -42,6 +61,11 @@ const ogImage = new URL(asset('brand/og-card.png'), Astro.site)
           document.documentElement.style.colorScheme = theme
           const meta = document.querySelector('[data-theme-meta]')
           if (meta) meta.setAttribute('content', theme === 'dark' ? '#060607' : '#f6f6f3')
+          const fav = document.querySelector('[data-theme-favicon]')
+          if (fav) {
+            const href = fav.getAttribute(theme === 'dark' ? 'data-favicon-dark' : 'data-favicon-light')
+            if (href) fav.setAttribute('href', href)
+          }
         } catch {
           document.documentElement.classList.add('dark')
           document.documentElement.style.colorScheme = 'dark'

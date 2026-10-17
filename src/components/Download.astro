@@ -44,12 +44,20 @@ const platforms = [
   <div class="studio-light pointer-events-none absolute inset-0"></div>
   <div class="relative mx-auto max-w-5xl px-5 text-center md:px-8">
     <img
+      src={asset('brand/app-icon-light-1024.png')}
+      alt="NZAP Engine app icon"
+      width="124"
+      height="124"
+      loading="lazy"
+      class="reveal mx-auto drop-shadow-[0_24px_50px_rgba(12,12,14,0.18)] dark:hidden"
+    />
+    <img
       src={asset('brand/app-icon-1024.png')}
       alt="NZAP Engine app icon"
       width="124"
       height="124"
       loading="lazy"
-      class="reveal mx-auto drop-shadow-[0_24px_50px_rgba(12,12,14,0.28)] dark:drop-shadow-[0_30px_60px_rgba(0,0,0,0.8)]"
+      class="reveal mx-auto hidden drop-shadow-[0_30px_60px_rgba(0,0,0,0.8)] dark:block"
     />
     <div class="reveal mt-6 inline-flex items-center gap-2 rounded-full bg-mint/10 px-3.5 py-1 text-xs font-medium text-mint ring-1 ring-mint/25">
       <span class="size-1.5 rounded-full bg-mint"></span>

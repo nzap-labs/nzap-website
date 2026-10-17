@@ -259,6 +259,11 @@ function setupInteractiveUI() {
       root.style.colorScheme = next
       const meta = document.querySelector('[data-theme-meta]')
       if (meta) meta.setAttribute('content', next === 'dark' ? '#060607' : '#f6f6f3')
+      const fav = document.querySelector('[data-theme-favicon]')
+      if (fav) {
+        const href = fav.getAttribute(next === 'dark' ? 'data-favicon-dark' : 'data-favicon-light')
+        if (href) fav.setAttribute('href', href)
+      }
       updateThemeToggleLabels()
     })
   })
